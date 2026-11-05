@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard - Quiz Portal{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm p-4 mb-4 bg-white">
+            <h2>Welcome back, {% if participant %}{{ participant.Name }}{% else %}{{ request.user.username }}{% endif %}!</h2>
+            {% if participant %}
+                <p class="text-muted mb-0">Institution: {{ participant.Institution }} | Class: {{ participant.Class }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Quiz Creator Button (Only shows for staff/creators) -->
+        {% if request.user.is_staff %}
+            <div class="mb-4">
+                <a href="{% url 'create_quiz' %}" class="btn btn-warning fw-bold shadow-sm">+ Create New Quiz</a>
+            </div>
+        {% endif %}
+
+        <h3 class="mb-3">Available Quizzes</h3>
+        {% if quizzes %}
+            <div class="list-group">
+                {% for quiz in quizzes %}
+                    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-3 mb-2 shadow-sm rounded">
+                        <div>
+                            <h5 class="mb-1">{{ quiz.title }}</h5>
+                            <p class="mb-1 text-muted">{{ quiz.description }}</p>
+                        </div>
+                        <a href="{% url 'take_quiz' quiz.id %}" class="btn btn-primary btn-sm">Take Quiz</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">No quizzes available right now. Check back later!</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

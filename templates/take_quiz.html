@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}{{ quiz.title }} - Take Quiz{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow p-4 mb-5">
+            <h2 class="text-center mb-3">{{ quiz.title }}</h2>
+            <p class="text-muted text-center">{{ quiz.description }}</p>
+            <hr>
+
+            <form method="POST">
+                {% csrf_token %}
+                {% for item in quiz_data %}
+                    <div class="card mb-3 p-3 bg-light border-0">
+                        <p class="fw-bold">Q{{ forloop.counter }}. {{ item.question.question }}</p>
+                        
+                        {% for option in item.options %}
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="{{ item.question.id }}" value="{{ option.id }}" id="opt{{ option.id }}" required>
+                                <label class="form-check-label" for="opt{{ option.id }}">
+                                    {{ option.option }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-success w-100 mt-3 py-2 fw-bold">Submit Quiz</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
