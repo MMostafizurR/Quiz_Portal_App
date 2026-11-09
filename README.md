@@ -27,6 +27,9 @@ A full-stack web application designed to create, manage, and take interactive qu
 Follow these steps to set up and run the Quiz Portal app locally on your machine.
 
 ### 1. Clone the Repository
+##🎯 Purpose of the Project
+
+This project was built to practice handling complex database relationships (such as ForeignKey relationships between Quizzes, Questions, Choices, and User Results), processing form inputs dynamically, and reinforcing backend development concepts in Django.
 ```bash
 git clone [https://github.com/MMostafizurR/Quiz_Portal_App.git](https://github.com/MMostafizurR/Quiz_Portal_App.git)
 cd Quiz_Portal_App
